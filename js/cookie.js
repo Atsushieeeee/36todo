@@ -16,15 +16,15 @@ $(function(){
     const time = Number(set);
     
     if (Cookies.get("setTime1") == null){
-      Cookies.set("setTime1", getLast(),{ expires: time })
+      Cookies.set("setTime1", getLast(),{ expires: time },{secure: true})
     }else if(Cookies.get("setTime2") == null){
-      Cookies.set("setTime2", getLast(),{ expires: time })
+      Cookies.set("setTime2", getLast(),{ expires: time },{secure: true})
     }else if(Cookies.get("setTime3") == null){
-      Cookies.set("setTime3", getLast(),{ expires: time })
+      Cookies.set("setTime3", getLast(),{ expires: time },{secure: true})
     }else if(Cookies.get("setTime4") == null){
-      Cookies.set("setTime4", getLast(),{ expires: time })
+      Cookies.set("setTime4", getLast(),{ expires: time },{secure: true})
     }else{
-      Cookies.set("setTime5", getLast(),{ expires: time })
+      Cookies.set("setTime5", getLast(),{ expires: time },{secure: true})
     }
 
     function getLast(){
@@ -32,11 +32,15 @@ $(function(){
         var now = new Date();
         var year = now.getFullYear();
         var mon = ("0" + (now.getMonth()+1)).slice(-2);
+        // 12時以前に12hrを選んだ場合
         if (now.getHours() < "12" && time == 0.5){
           var hour = ("0" + (now.getHours() + 12)).slice(-2);
           var day = ("0" + now.getDate()).slice(-2);
+        // 12時以前に24hrを選んだ場合
         }else if (now.getHours() < "12" && time == 1){
           var hour = ("0" + now.getHours()).slice(-2);
+          // if もし月末日付だった場合に月を変える
+          // 2月4月6月9月11月は30日で+1されると次の月に切り替え　それ以外は31日で切り替え
           if (now.getMonth()+1 == "2"||"4"||"6"||"9"||"11"){
             if (now.getDate() == "30"){
               var day = now.getDate() == "01"
@@ -50,30 +54,26 @@ $(function(){
               var day = ("0" + (now.getDate() + 1)).slice(-2);
             }
           }
-          // if もし月末日付だった場合に月を変える
-          // 2月4月6月9月11月は30日で+1されると次の月に切り替え　それ以外は31日で切り替え
+        // 12時以前に36hrを選んだ場合
         }else if (now.getHours() < "12" && time == 1.5){
-          var hour = ("0" + (now.getHours() +  12)).slice(-2);
+          var hour = (now.getHours() +  12);
           // if もし月末前日だった場合に月を変える
           // 2月4月6月9月11月は29日で+1されると次の月に切り替え　それ以外は30日で切り替え
           if (now.getMonth()+1 == "2"||"4"||"6"||"9"||"11"){
             if (now.getDate() == "30"){
-              var day = now.getDate() == "02"
-            }else if(now.getDate() == "29"){
               var day = now.getDate() == "01"
             }else{
-              var day = ("0" + (now.getDate() + 2)).slice(-2);
+              var day = ("0" + (now.getDate() + 1)).slice(-2);
             }
           }else{
             if (now.getDate() == "31"){
-              var day = now.getDate() == "02"
-            }else if(now.getDate() == "30"){
               var day = now.getDate() == "01"
             }else{
-              var day = ("0" + (now.getDate() + 2)).slice(-2);
+              var day = ("0" + (now.getDate() + 1)).slice(-2);
             }
           }
-        }else if (now.getHours() > "12" && time == 0.5){
+        // 12時以降に12hrを選んだ場合
+        }else if (now.getHours() >= "12" && time == 0.5){
           var hour = ("0" + (now.getHours() - 12)).slice(-2);
           // if もし月末日付だった場合に月を変える
           // 2月4月6月9月11月は30日で+1されると次の月に切り替え　それ以外は31日で切り替え
@@ -90,10 +90,11 @@ $(function(){
               var day = ("0" + (now.getDate() + 1)).slice(-2);
             }
           }
-        }else if (now.getHours() > "12" && time == 1){
+        // 12時以降に24hrを選んだ場合
+        }else if (now.getHours() >= "12" && time == 1){
           var hour = ("0" + now.getHours()).slice(-2);
           // if もし月末日付だった場合に月を変える
-          // 2月4月6月9月11月は30日で+1されると次の月に切り替え　それ以外は31日で切り替え
+          // 2月4月6月9月11月は30日で+1されると次の月に切り替え それ以外は31日で切り替え
           if (now.getMonth()+1 == "2"||"4"||"6"||"9"||"11"){
             if (now.getDate() == "30"){
               var day = now.getDate() == "01"
@@ -107,10 +108,11 @@ $(function(){
               var day = ("0" + (now.getDate() + 1)).slice(-2);
             }
           }
-        }else if (now.getHours() > "12" && time == 1.5){
+        // 12時以降に36rを選んだ場合
+        }else if (now.getHours() >= "12" && time == 1.5){
           var hour = ("0" + (now.getHours() - 12)).slice(-2);
           // if もし月末前日だった場合に月を変える
-          // 2月4月6月9月11月は29日で+1されると次の月に切り替え　それ以外は30日で切り替え
+          // 2月4月6月9月11月は29日で+1されると次の月に切り替え それ以外は30日で切り替え
           if (now.getMonth()+1 == "2"||"4"||"6"||"9"||"11"){
             if (now.getDate() == "30"){
               var day = now.getDate() == "02"
@@ -145,33 +147,33 @@ $(function(){
 
     const task = document.getElementById("task-name1").value
     if (Cookies.get("taskName1") == null){
-      Cookies.set("taskName1", task,{ expires: time })
+      Cookies.set("taskName1", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime1")).replace(/[^0-9]/g, '');
-      const html1 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName1") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime1") +'</p><button class="delete-task1" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';  
+      const html1 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName1") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime1") +'</p></div><button class="delete-task1" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';  
       $("#cookieTask1").show();
       $('#cookieTask1').append(html1);
     }else if(Cookies.get("taskName2") == null){
-      Cookies.set("taskName2", task,{ expires: time })
+      Cookies.set("taskName2", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime2")).replace(/[^0-9]/g, '');
-      const html2 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName2") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime2") +'</p><button class="delete-task2" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html2 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName2") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime2") +'</p></div><button class="delete-task2" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask2").show();
       $('#cookieTask2').append(html2);
     }else if(Cookies.get("taskName3") == null){
-      Cookies.set("taskName3", task,{ expires: time })
+      Cookies.set("taskName3", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime3")).replace(/[^0-9]/g, '');
-      const html3 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName3") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime3") +'</p><button class="delete-task3" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html3 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName3") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime3") +'</p></div><button class="delete-task3" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask3").show();
       $('#cookieTask3').append(html3);
     }else if(Cookies.get("taskName4") == null){
-      Cookies.set("taskName4", task,{ expires: time })
+      Cookies.set("taskName4", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime4")).replace(/[^0-9]/g, '');
-      const html4 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName4") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime4") +'</p><button class="delete-task4" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html4 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName4") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime4") +'</p></div><button class="delete-task4" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask4").show();
       $('#cookieTask4').append(html4);
     }else if(Cookies.get("taskName5") == null){
-      Cookies.set("taskName5", task,{ expires: time })
+      Cookies.set("taskName5", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime5")).replace(/[^0-9]/g, '');
-      const html5 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName5") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime5") +'</p><button class="delete-task5" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html5 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName5") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime5") +'</p></div><button class="delete-task5" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask5").show();
       $('#cookieTask5').append(html5);
     }else{
@@ -221,15 +223,15 @@ $(function(){
     const time = Number(set);
     
     if (Cookies.get("setTime6") == null){
-      Cookies.set("setTime6", getLast(),{ expires: time })
+      Cookies.set("setTime6", getLast(),{ expires: time },{secure: true})
     }else if(Cookies.get("setTime7") == null){
-      Cookies.set("setTime7", getLast(),{ expires: time })
+      Cookies.set("setTime7", getLast(),{ expires: time },{secure: true})
     }else if(Cookies.get("setTime8") == null){
-      Cookies.set("setTime8", getLast(),{ expires: time })
+      Cookies.set("setTime8", getLast(),{ expires: time },{secure: true})
     }else if(Cookies.get("setTime9") == null){
-      Cookies.set("setTime9", getLast(),{ expires: time })
+      Cookies.set("setTime9", getLast(),{ expires: time },{secure: true})
     }else{
-      Cookies.set("setTime10", getLast(),{ expires: time })
+      Cookies.set("setTime10", getLast(),{ expires: time },{secure: true})
     }
 
     function getLast(){
@@ -237,11 +239,15 @@ $(function(){
       var now = new Date();
       var year = now.getFullYear();
       var mon = ("0" + (now.getMonth()+1)).slice(-2);
+      // 12時以前に12hrを選んだ場合
       if (now.getHours() < "12" && time == 0.5){
         var hour = ("0" + (now.getHours() + 12)).slice(-2);
         var day = ("0" + now.getDate()).slice(-2);
+      // 12時以前に24hrを選んだ場合
       }else if (now.getHours() < "12" && time == 1){
         var hour = ("0" + now.getHours()).slice(-2);
+        // if もし月末日付だった場合に月を変える
+        // 2月4月6月9月11月は30日で+1されると次の月に切り替え　それ以外は31日で切り替え
         if (now.getMonth()+1 == "2"||"4"||"6"||"9"||"11"){
           if (now.getDate() == "30"){
             var day = now.getDate() == "01"
@@ -255,30 +261,26 @@ $(function(){
             var day = ("0" + (now.getDate() + 1)).slice(-2);
           }
         }
-        // if もし月末日付だった場合に月を変える
-        // 2月4月6月9月11月は30日で+1されると次の月に切り替え　それ以外は31日で切り替え
+      // 12時以前に36hrを選んだ場合
       }else if (now.getHours() < "12" && time == 1.5){
-        var hour = ("0" + (now.getHours() +  12)).slice(-2);
+        var hour = (now.getHours() +  12);
         // if もし月末前日だった場合に月を変える
         // 2月4月6月9月11月は29日で+1されると次の月に切り替え　それ以外は30日で切り替え
         if (now.getMonth()+1 == "2"||"4"||"6"||"9"||"11"){
           if (now.getDate() == "30"){
-            var day = now.getDate() == "02"
-          }else if(now.getDate() == "29"){
             var day = now.getDate() == "01"
           }else{
-            var day = ("0" + (now.getDate() + 2)).slice(-2);
+            var day = ("0" + (now.getDate() + 1)).slice(-2);
           }
         }else{
           if (now.getDate() == "31"){
-            var day = now.getDate() == "02"
-          }else if(now.getDate() == "30"){
             var day = now.getDate() == "01"
           }else{
-            var day = ("0" + (now.getDate() + 2)).slice(-2);
+            var day = ("0" + (now.getDate() + 1)).slice(-2);
           }
         }
-      }else if (now.getHours() > "12" && time == 0.5){
+      // 12時以降に12hrを選んだ場合
+      }else if (now.getHours() >= "12" && time == 0.5){
         var hour = ("0" + (now.getHours() - 12)).slice(-2);
         // if もし月末日付だった場合に月を変える
         // 2月4月6月9月11月は30日で+1されると次の月に切り替え　それ以外は31日で切り替え
@@ -295,7 +297,8 @@ $(function(){
             var day = ("0" + (now.getDate() + 1)).slice(-2);
           }
         }
-      }else if (now.getHours() > "12" && time == 1){
+      // 12時以降に24hrを選んだ場合
+      }else if (now.getHours() >= "12" && time == 1){
         var hour = ("0" + now.getHours()).slice(-2);
         // if もし月末日付だった場合に月を変える
         // 2月4月6月9月11月は30日で+1されると次の月に切り替え　それ以外は31日で切り替え
@@ -312,7 +315,8 @@ $(function(){
             var day = ("0" + (now.getDate() + 1)).slice(-2);
           }
         }
-      }else if (now.getHours() > "12" && time == 1.5){
+      // 12時以降に36rを選んだ場合
+      }else if (now.getHours() >= "12" && time == 1.5){
         var hour = ("0" + (now.getHours() - 12)).slice(-2);
         // if もし月末前日だった場合に月を変える
         // 2月4月6月9月11月は29日で+1されると次の月に切り替え　それ以外は30日で切り替え
@@ -352,33 +356,33 @@ $(function(){
 
     const task = document.getElementById("task-name2").value
     if (Cookies.get("taskName6") == null){
-      Cookies.set("taskName6", task,{ expires: time })
+      Cookies.set("taskName6", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime6")).replace(/[^0-9]/g, '');
-      const html1 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName6") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime6") +'</p><button class="delete-task6" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html1 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName6") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime6") +'</p></div><button class="delete-task6" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask6").show();
       $('#cookieTask6').append(html1);
     }else if(Cookies.get("taskName7") == null){
-      Cookies.set("taskName7", task,{ expires: time })
+      Cookies.set("taskName7", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime7")).replace(/[^0-9]/g, '');
-      const html2 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName7") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime7") +'</p><button class="delete-task7" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html2 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName7") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime7") +'</p></div><button class="delete-task7" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask7").show();
       $('#cookieTask7').append(html2);
     }else if(Cookies.get("taskName8") == null){
-      Cookies.set("taskName8", task,{ expires: time })
+      Cookies.set("taskName8", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime8")).replace(/[^0-9]/g, '');
-      const html3 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName8") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime8") +'</p><button class="delete-task8" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html3 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName8") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime8") +'</p></div><button class="delete-task8" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask8").show();
       $('#cookieTask8').append(html3);
     }else if(Cookies.get("taskName9") == null){
-      Cookies.set("taskName9", task,{ expires: time })
+      Cookies.set("taskName9", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime9")).replace(/[^0-9]/g, '');
-      const html4 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName9") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime9") +'</p><button class="delete-task9" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html4 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName9") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime9") +'</p></div><button class="delete-task9" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask9").show();
       $('#cookieTask9').append(html4);
     }else if(Cookies.get("taskName10") == null){
-      Cookies.set("taskName10", task,{ expires: time })
+      Cookies.set("taskName10", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime10")).replace(/[^0-9]/g, '');
-      const html5 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName10") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime10") +'</p><button class="delete-task10" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html5 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName10") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime10") +'</p></div><button class="delete-task10" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask10").show();
       $('#cookieTask10').append(html5);
     }else{
@@ -432,15 +436,15 @@ $(function(){
     const time = Number(set);
     
     if (Cookies.get("setTime11") == null){
-      Cookies.set("setTime11", getLast(),{ expires: time })
+      Cookies.set("setTime11", getLast(),{ expires: time },{secure: true})
     }else if(Cookies.get("setTime12") == null){
-      Cookies.set("setTime12", getLast(),{ expires: time })
+      Cookies.set("setTime12", getLast(),{ expires: time },{secure: true})
     }else if(Cookies.get("setTime13") == null){
-      Cookies.set("setTime13", getLast(),{ expires: time })
+      Cookies.set("setTime13", getLast(),{ expires: time },{secure: true})
     }else if(Cookies.get("setTime14") == null){
-      Cookies.set("setTime14", getLast(),{ expires: time })
+      Cookies.set("setTime14", getLast(),{ expires: time },{secure: true})
     }else{
-      Cookies.set("setTime15", getLast(),{ expires: time })
+      Cookies.set("setTime15", getLast(),{ expires: time },{secure: true})
     }
 
     function getLast(){
@@ -448,11 +452,15 @@ $(function(){
       var now = new Date();
       var year = now.getFullYear();
       var mon = ("0" + (now.getMonth()+1)).slice(-2);
+      // 12時以前に12hrを選んだ場合
       if (now.getHours() < "12" && time == 0.5){
         var hour = ("0" + (now.getHours() + 12)).slice(-2);
         var day = ("0" + now.getDate()).slice(-2);
+      // 12時以前に24hrを選んだ場合
       }else if (now.getHours() < "12" && time == 1){
         var hour = ("0" + now.getHours()).slice(-2);
+        // if もし月末日付だった場合に月を変える
+        // 2月4月6月9月11月は30日で+1されると次の月に切り替え　それ以外は31日で切り替え
         if (now.getMonth()+1 == "2"||"4"||"6"||"9"||"11"){
           if (now.getDate() == "30"){
             var day = now.getDate() == "01"
@@ -466,30 +474,26 @@ $(function(){
             var day = ("0" + (now.getDate() + 1)).slice(-2);
           }
         }
-        // if もし月末日付だった場合に月を変える
-        // 2月4月6月9月11月は30日で+1されると次の月に切り替え　それ以外は31日で切り替え
+      // 12時以前に36hrを選んだ場合
       }else if (now.getHours() < "12" && time == 1.5){
-        var hour = ("0" + (now.getHours() +  12)).slice(-2);
+        var hour = (now.getHours() +  12);
         // if もし月末前日だった場合に月を変える
         // 2月4月6月9月11月は29日で+1されると次の月に切り替え　それ以外は30日で切り替え
         if (now.getMonth()+1 == "2"||"4"||"6"||"9"||"11"){
           if (now.getDate() == "30"){
-            var day = now.getDate() == "02"
-          }else if(now.getDate() == "29"){
             var day = now.getDate() == "01"
           }else{
-            var day = ("0" + (now.getDate() + 2)).slice(-2);
+            var day = ("0" + (now.getDate() + 1)).slice(-2);
           }
         }else{
           if (now.getDate() == "31"){
-            var day = now.getDate() == "02"
-          }else if(now.getDate() == "30"){
             var day = now.getDate() == "01"
           }else{
-            var day = ("0" + (now.getDate() + 2)).slice(-2);
+            var day = ("0" + (now.getDate() + 1)).slice(-2);
           }
         }
-      }else if (now.getHours() > "12" && time == 0.5){
+      // 12時以降に12hrを選んだ場合
+      }else if (now.getHours() >= "12" && time == 0.5){
         var hour = ("0" + (now.getHours() - 12)).slice(-2);
         // if もし月末日付だった場合に月を変える
         // 2月4月6月9月11月は30日で+1されると次の月に切り替え　それ以外は31日で切り替え
@@ -506,7 +510,8 @@ $(function(){
             var day = ("0" + (now.getDate() + 1)).slice(-2);
           }
         }
-      }else if (now.getHours() > "12" && time == 1){
+      // 12時以降に24hrを選んだ場合
+      }else if (now.getHours() >= "12" && time == 1){
         var hour = ("0" + now.getHours()).slice(-2);
         // if もし月末日付だった場合に月を変える
         // 2月4月6月9月11月は30日で+1されると次の月に切り替え　それ以外は31日で切り替え
@@ -523,7 +528,8 @@ $(function(){
             var day = ("0" + (now.getDate() + 1)).slice(-2);
           }
         }
-      }else if (now.getHours() > "12" && time == 1.5){
+      // 12時以降に36rを選んだ場合
+      }else if (now.getHours() >= "12" && time == 1.5){
         var hour = ("0" + (now.getHours() - 12)).slice(-2);
         // if もし月末前日だった場合に月を変える
         // 2月4月6月9月11月は29日で+1されると次の月に切り替え　それ以外は30日で切り替え
@@ -563,33 +569,33 @@ $(function(){
 
     const task = document.getElementById("task-name3").value
     if (Cookies.get("taskName11") == null){
-      Cookies.set("taskName11", task,{ expires: time })
+      Cookies.set("taskName11", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime11")).replace(/[^0-9]/g, '');
-      const html1 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName11") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime11") +'</p><button class="delete-task11" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html1 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName11") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime11") +'</p></div><button class="delete-task11" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask11").show();
       $('#cookieTask11').append(html1);
     }else if(Cookies.get("taskName12") == null){
-      Cookies.set("taskName12", task,{ expires: time })
+      Cookies.set("taskName12", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime12")).replace(/[^0-9]/g, '');
-      const html2 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName12") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime12") +'</p><button class="delete-task12" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html2 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName12") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime12") +'</p></div><button class="delete-task12" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask12").show();
       $('#cookieTask12').append(html2);
     }else if(Cookies.get("taskName13") == null){
-      Cookies.set("taskName13", task,{ expires: time })
+      Cookies.set("taskName13", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime13")).replace(/[^0-9]/g, '');
-      const html3 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName13") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime13") +'</p><button class="delete-task13" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html3 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName13") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime13") +'</p></div><button class="delete-task13" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask13").show();
       $('#cookieTask13').append(html3);
     }else if(Cookies.get("taskName14") == null){
-      Cookies.set("taskName14", task,{ expires: time })
+      Cookies.set("taskName14", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime14")).replace(/[^0-9]/g, '');
-      const html4 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName14") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime14") +'</p><button class="delete-task14" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html4 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName14") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime14") +'</p></div><button class="delete-task14" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask14").show();
       $('#cookieTask14').append(html4);
     }else if(Cookies.get("taskName15") == null){
-      Cookies.set("taskName15", task,{ expires: time })
+      Cookies.set("taskName15", task,{ expires: time },{secure: true})
       var limitTime = (Cookies.get("setTime15")).replace(/[^0-9]/g, '');
-      const html5 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName15") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime15") +'</p><button class="delete-task15" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html5 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName15") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime15") +'</p></div><button class="delete-task15" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask15").show();
       $('#cookieTask15').append(html5);
     }else{
@@ -648,7 +654,7 @@ $(function(){
 
     if (Cookies.get("taskName1") != null){
       var limitTime = (Cookies.get("setTime1")).replace(/[^0-9]/g, '');
-      const html1 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName1") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime1") +'</p><button class="delete-task1" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';  
+      const html1 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName1") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime1") +'</p></div><button class="delete-task1" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';  
       $("#cookieTask1").show();
       $("#cookieTask1").append(html1);
     }else{
@@ -656,7 +662,7 @@ $(function(){
     }
     if (Cookies.get("taskName2") != null){
       var limitTime = (Cookies.get("setTime2")).replace(/[^0-9]/g, '');
-      const html2 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName2") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime2") +'</p><button class="delete-task2" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html2 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName2") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime2") +'</p></div><button class="delete-task2" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
         $("#cookieTask2").show()
         $("#cookieTask2").append(html2);
 
@@ -665,7 +671,7 @@ $(function(){
     }
     if (Cookies.get("taskName3") != null){
       var limitTime = (Cookies.get("setTime3")).replace(/[^0-9]/g, '');
-      const html3 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName3") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime3") +'</p><button class="delete-task3" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html3 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName3") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime3") +'</p></div><button class="delete-task3" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
         $("#cookieTask3").show();
         $("#cookieTask3").append(html3);
 
@@ -674,7 +680,7 @@ $(function(){
     }
     if (Cookies.get("taskName4") != null){
       var limitTime = (Cookies.get("setTime4")).replace(/[^0-9]/g, '');
-      const html4 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName4") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime4") +'</p><button class="delete-task4" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html4 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName4") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime4") +'</p></div><button class="delete-task4" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask4").show();
       $("#cookieTask4").append(html4);
 
@@ -683,7 +689,7 @@ $(function(){
     }
     if (Cookies.get("taskName5") != null){
       var limitTime = (Cookies.get("setTime5")).replace(/[^0-9]/g, '');
-      const html5 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName5") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime5") +'</p><button class="delete-task5" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html5 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName5") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime5") +'</p></div><button class="delete-task5" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask5").show();
       $("#cookieTask5").append(html5);
 
@@ -722,7 +728,7 @@ $(function(){
   // タスク追加を押さない場合でもタスクが表示されるようにする
   if (Cookies.get("taskName6") != null){
     var limitTime = (Cookies.get("setTime6")).replace(/[^0-9]/g, '');
-    const html1 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName6") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime6") +'</p><button class="delete-task6" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+    const html1 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName6") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime6") +'</p></div><button class="delete-task6" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
     $("#cookieTask6").show();
     $("#cookieTask6").append(html1)
   }else{
@@ -730,7 +736,7 @@ $(function(){
   }
   if (Cookies.get("taskName7") != null){
     var limitTime = (Cookies.get("setTime7")).replace(/[^0-9]/g, '');
-    const html2 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName7") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime7") +'</p><button class="delete-task7" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+    const html2 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName7") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime7") +'</p></div><button class="delete-task7" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask7").show()
       $("#cookieTask7").append(html2)
 
@@ -739,7 +745,7 @@ $(function(){
   }
   if (Cookies.get("taskName8") != null){
     var limitTime = (Cookies.get("setTime8")).replace(/[^0-9]/g, '');
-    const html3 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName8") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime8") +'</p><button class="delete-task8" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+    const html3 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName8") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime8") +'</p></div><button class="delete-task8" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask8").show();
       $("#cookieTask8").append(html3)
 
@@ -748,7 +754,7 @@ $(function(){
   }
   if (Cookies.get("taskName9") != null){
     var limitTime = (Cookies.get("setTime9")).replace(/[^0-9]/g, '');
-    const html4 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName9") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime9") +'</p><button class="delete-task9" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+    const html4 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName9") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime9") +'</p></div><button class="delete-task9" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
     $("#cookieTask9").show();
     $("#cookieTask9").append(html4)
 
@@ -757,7 +763,7 @@ $(function(){
   }
   if (Cookies.get("taskName10") != null){
     var limitTime = (Cookies.get("setTime10")).replace(/[^0-9]/g, '');
-    const html5 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName10") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime10") +'</p><button class="delete-task10" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+    const html5 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName10") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime10") +'</p></div><button class="delete-task10" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
     $("#cookieTask10").show();
     $("#cookieTask10").append(html5)
 
@@ -796,7 +802,7 @@ $('.delete-task10').click(function(){
   // タスク追加を押さない場合でもタスクが表示されるようにする
   if (Cookies.get("taskName11") != null){
     var limitTime = (Cookies.get("setTime11")).replace(/[^0-9]/g, '');
-    const html1 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName11") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime11") +'</p><button class="delete-task11" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+    const html1 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName11") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime11") +'</p></div><button class="delete-task11" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
     $("#cookieTask11").show();
     $("#cookieTask11").append(html1);
   }else{
@@ -804,7 +810,7 @@ $('.delete-task10').click(function(){
   }
   if (Cookies.get("taskName12") != null){
       var limitTime = (Cookies.get("setTime12")).replace(/[^0-9]/g, '');
-      const html2 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName12") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime12") +'</p><button class="delete-task12" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html2 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName12") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime12") +'</p></div><button class="delete-task12" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask12").show();
       $("#cookieTask12").append(html2);
     }else{
@@ -812,7 +818,7 @@ $('.delete-task10').click(function(){
   }
   if (Cookies.get("taskName13") != null){
       var limitTime = (Cookies.get("setTime13")).replace(/[^0-9]/g, '');
-      const html3 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName13") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime13") +'</p><button class="delete-task13" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+      const html3 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName13") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime13") +'</p></div><button class="delete-task13" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
       $("#cookieTask13").show();
       $("#cookieTask13").append(html3);
 
@@ -821,7 +827,7 @@ $('.delete-task10').click(function(){
   }
   if (Cookies.get("taskName14") != null){
     var limitTime = (Cookies.get("setTime14")).replace(/[^0-9]/g, '');
-    const html4 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName14") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime14") +'</p><button class="delete-task14" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+    const html4 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName14") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime14") +'</p></div><button class="delete-task14" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
     $("#cookieTask14").show();
     $("#cookieTask14").append(html4);
 
@@ -830,7 +836,7 @@ $('.delete-task10').click(function(){
   }
   if (Cookies.get("taskName15") != null){
     var limitTime = (Cookies.get("setTime15")).replace(/[^0-9]/g, '');
-    const html5 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName15") + '</p>' + '<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime15") +'</p><button class="delete-task15" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
+    const html5 = '<div class="cookieTask-add"><p class="cookieTask-text">' + Cookies.get("taskName15") + '</p>' + '<div class=limit-area>' +'<div class=task36limit>' + getLimit() + '</div>' + '<p class="cookieTask_limit">' +  Cookies.get("setTime15") +'</p></div><button class="delete-task15" id="delete" value="削除"><i class="fas fa-trash-alt"></i></button> </div>';
     $("#cookieTask15").show();
     $("#cookieTask15").append(html5);
 
@@ -886,17 +892,17 @@ $(function(){
     const folder = document.getElementById("folder36-name").value
     // フォルダ追加部分
     if (Cookies.get("folderName1") == null){
-      Cookies.set("folderName1", folder)
+      Cookies.set("folderName1", folder,{secure: true})
       tab_name1.innerHTML = '<p id="cookieFolder-text1">' + Cookies.get("folderName1") + '</p>' + '<button class="delete-folder1" id="delete-folder" value="削除"><i class="fas fa-trash-alt"></i></button>';
       $("#tab1").show();
       $("#content1").show();
     }else if(Cookies.get("folderName2") == null){
-      Cookies.set("folderName2", folder)
+      Cookies.set("folderName2", folder,{secure: true})
       tab_name2.innerHTML = '<p id="cookieFolder-text2">' + Cookies.get("folderName2") + '</p>' + '<button class="delete-folder2" id="delete-folder" value="削除"><i class="fas fa-trash-alt"></i></button>';
       $("#tab2").show();
       $("#content2").show();
     }else if(Cookies.get("folderName3") == null){
-      Cookies.set("folderName3", folder)
+      Cookies.set("folderName3", folder,{secure: true})
       tab_name3.innerHTML = '<p id="cookieFolder-text3">' + Cookies.get("folderName3") + '</p>' + '<button class="delete-folder3" id="delete-folder" value="削除"><i class="fas fa-trash-alt"></i></button>';
       $("#tab3").show();
       $("#content3").show();

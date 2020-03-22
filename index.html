@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <meta charset="utf-8">
+  <meta http-equiv="content-type" charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
   <meta property='og:type' content='webapp'>
   <meta property='og:title' content='36todo'>
   <meta property='og:url' content='URLが入る'>
   <meta property='og:description' content='36todo'>
-  <meta property="og:image" content="img/ogp.png">
-  <meta name="description" content="36todo" />
+  <meta name="description" content="ログイン不要で最大36時間保存されるTODOアプリです。" />
   <title>36todo</title>
   <link rel="stylesheet" href="https://unpkg.com/sanitize.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
@@ -16,8 +16,8 @@
   <link href="css/style.css" media="all" rel="stylesheet" type="text/css" />
   <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src= "https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
-  <script src="js/cookie.js"></script>
-  <script src="js/moment.js"></script>
+  <script type="text/javascript" src="js/cookie.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/moment.js" charset="utf-8"></script>
 
 </head>
 
@@ -31,6 +31,7 @@
         <div class="site_info_text">
           <li>このサイトではCookieを利用しています。</li>
           <li>ブラウザでCookieの使用、保存期間などを個人で設定している場合<br>正常に機能しない場合がございます。</li>
+          <li>スマートフォン等のモバイル環境では上手く機能しない場合がございます。</li>
         </div>
       </div>
       <div class="site_use">
@@ -67,11 +68,8 @@
       <div class="main-up">
         <div class="main-content">
           <div class="main-folder">
-            <!-- <div class="main-folder-header">
-              <h2>フォルダ</h2>
-            </div> -->
             <div class="main36-folder-btn">
-              <input type="text" name="name" id="folder36-name" value="" placeholder="フォルダを追加する">
+              <input type="text" name="text" id="folder36-name" value="" placeholder="フォルダを追加する">
               <input type="submit" value="追加" id="submit36-folder">
             </div>
             <div class="main-folder-list">
@@ -91,16 +89,18 @@
         <div class="main-content" id="content1">
           <div class="main-task">
             <div class="main36-task-add">
-              <input type="text" name="name" class="task36-name" id="task-name1" value="" placeholder="タスクを追加する">
-              <div class="select_time" id="time1">
-                <input type="radio" name="hr" id="select1" value="1.5" checked="">
-                <label for="select1">36hr</label>
-                <input type="radio" name="hr" id="select2" value="1">
-                <label for="select2">24hr</label>
-                <input type="radio" name="hr" id="select3" value="0.5">
-                <label for="select3">12hr</label>
+              <input type="text" name="text" class="task36-name" id="task-name1" value="" placeholder="タスクを追加する">
+              <div class="main36-task-add-down">
+                <div class="select_time" id="time1">
+                  <input type="radio" name="hr" id="select1" value="1.5" checked="">
+                  <label for="select1">36hr</label>
+                  <input type="radio" name="hr" id="select2" value="1">
+                  <label for="select2">24hr</label>
+                  <input type="radio" name="hr" id="select3" value="0.5">
+                  <label for="select3">12hr</label>
+                </div>
+                <input type="submit" value="追加" class="task36-submit" id="submit-task1" class="set">
               </div>
-              <input type="submit" value="追加" class="task36-submit" id="submit-task1" class="set">
             </div>
             <div class="main-task-info">
               <div class="main36-task-info-header">
@@ -131,16 +131,18 @@
         <div class="main-content" id="content2">
             <div class="main-task">
             <div class="main36-task-add">
-              <input type="text" name="name" class="task36-name" id="task-name2" value="" placeholder="タスクを追加する">
-              <div class="select_time" id="time2">
-                <input type="radio" name="hr" id="select4" value="1.5" checked="">
-                <label for="select4">36hr</label>
-                <input type="radio" name="hr" id="select5" value="1">
-                <label for="select5">24hr</label>
-                <input type="radio" name="hr" id="select6" value="0.5">
-                <label for="select6">12hr</label>
+              <input type="text" name="text" class="task36-name" id="task-name2" value="" placeholder="タスクを追加する">
+              <div class="main36-task-add-down">
+                <div class="select_time" id="time2">
+                  <input type="radio" name="hr" id="select4" value="1.5" checked="">
+                  <label for="select4">36hr</label>
+                  <input type="radio" name="hr" id="select5" value="1">
+                  <label for="select5">24hr</label>
+                  <input type="radio" name="hr" id="select6" value="0.5">
+                  <label for="select6">12hr</label>
+                </div>
+                <input type="submit" value="追加" class="task36-submit" id="submit-task2" class="set">
               </div>
-              <input type="submit" value="追加" class="task36-submit" id="submit-task2" class="set">
             </div>
               <div class="main-task-info">
               <div class="main36-task-info-header">
@@ -171,16 +173,18 @@
         <div class="main-content" id="content3">
             <div class="main-task">
             <div class="main36-task-add">
-              <input type="text" name="name" class="task36-name" id="task-name3" value="" placeholder="タスクを追加する">
-              <div class="select_time" id="time3">
-                <input type="radio" name="hr" id="select7" value="1.5" checked="">
-                <label for="select7">36hr</label>
-                <input type="radio" name="hr" id="select8" value="1">
-                <label for="select8">24hr</label>
-                <input type="radio" name="hr" id="select9" value="0.5">
-                <label for="select9">12hr</label>
+              <input type="text" name="text" class="task36-name" id="task-name3" value="" placeholder="タスクを追加する">
+              <div class="main36-task-add-down">
+                <div class="select_time" id="time3">
+                  <input type="radio" name="hr" id="select7" value="1.5" checked="">
+                  <label for="select7">36hr</label>
+                  <input type="radio" name="hr" id="select8" value="1">
+                  <label for="select8">24hr</label>
+                  <input type="radio" name="hr" id="select9" value="0.5">
+                  <label for="select9">12hr</label>
+                </div>
+                <input type="submit" value="追加" class="task36-submit" id="submit-task3" class="set">
               </div>
-              <input type="submit" value="追加" class="task36-submit" id="submit-task3" class="set">
             </div>
               <div class="main-task-info">
               <div class="main36-task-info-header">
