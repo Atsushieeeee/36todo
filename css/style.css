@@ -55,8 +55,6 @@ header{
   height: 60px;
   top: 0px;
   background: #29C4A0;
-  /* background:linear-gradient(135deg, #184e68 0%,#57ca85 100%); */
-  /* background-color:#424242; */
   color: #BDBDBD;
   line-height: 60px;
 }
@@ -453,17 +451,31 @@ footer{
   padding-left:10px ;
 }
 
+.fa-trash-alt{
+  line-height: 50px;
+  font-size: 18px;
+  color: red;
+}
 
-#delete-folder{
+.cookieTask-add .fa-trash-alt{
+  line-height: 40px;
+}
+
+/* #delete-folder{
   width: 40px;
   height: 30px;
   margin: 10px 5px ;
-  background: rgb(221, 62, 14);
+  background: #BDBDBD;
   border: none;
   border-radius: 3px;
   justify-content: center;
   align-items: center;
-}
+} */
+
+/* .main-folder-add-title.active  #delete-folder{
+  background: #00CED2;
+} */
+
 
 i {
   font-size: 18px;
@@ -566,7 +578,7 @@ i {
   width: 40px;
   height: 30px;
   margin: 5px 5px;
-  background: #BDBDBD;
+  background: #00CED2;
   color: #424242;
   border: none;
   border-radius: 3px;
@@ -693,7 +705,7 @@ input[name="tab_item"] {
   }
 
   @media screen and (max-width: 1010px){
-    
+
     .btn_area{
       margin: 15px auto;
     }
