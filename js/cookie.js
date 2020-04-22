@@ -110,7 +110,7 @@ $(function(){
   // フォルダ追加を押さない場合でもCookieがあれば表示される
   // $(document).ready(function(){
   if (Cookies.get("folderName1") != null){
-      tab_name1.innerHTML = '<p id="cookieFolder-text1">' + decodeURI(Cookies.get("folderName1")) + '</p>' + '</p>' + '<i class="far fa-trash-alt" id="delete-folder1"></i>';
+      tab_name1.innerHTML = '<p id="cookieFolder-text1">' + decodeURI(Cookies.get("folderName1")) + '</p>' + '<i class="far fa-trash-alt" id="delete-folder1"></i>';
       $("#tab1").show();
       $("#content1").show();
   }else{
@@ -119,7 +119,7 @@ $(function(){
 
   }
   if (Cookies.get("folderName2") != null){
-      tab_name2.innerHTML = '<p id="cookieFolder-text2">' + decodeURI(Cookies.get("folderName2")) + '</p>' + '</p>' + '<i class="far fa-trash-alt" id="delete-folder2"></i>';
+      tab_name2.innerHTML = '<p id="cookieFolder-text2">' + decodeURI(Cookies.get("folderName2")) + '</p>' + '<i class="far fa-trash-alt" id="delete-folder2"></i>';
       $("#tab2").show();
       $("#content2").show();
 
@@ -129,7 +129,7 @@ $(function(){
 
   }
   if (Cookies.get("folderName3") != null){
-      tab_name3.innerHTML = '<p id="cookieFolder-text3">' + decodeURI(Cookies.get("folderName3")) + '</p>' + '</p>' + '<i class="far fa-trash-alt" id="delete-folder3"></i>';
+      tab_name3.innerHTML = '<p id="cookieFolder-text3">' + decodeURI(Cookies.get("folderName3")) + '</p>' + '<i class="far fa-trash-alt" id="delete-folder3"></i>';
       $("#tab3").show();
       $("#content3").show();
 
