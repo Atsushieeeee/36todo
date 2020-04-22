@@ -128,7 +128,6 @@ footer{
 .main-content{
   background: #FFF;
   border: solid 1px #BDBDBD;
-  border-radius: 5px;
 }
 /* メイン左側 */
 
@@ -401,11 +400,13 @@ footer{
   font-weight: bold;
   background: #00BFFF;
   color: #FFF;
+  border: none;
   border-radius: 3px;
   font-size: 13px;
 }
 
 #tab_name1,#tab_name2,#tab_name3{
+  height: 50px;
   display: flex;
   flex-direction: row;
 }
@@ -432,6 +433,7 @@ footer{
   font-weight: bold;
   background: #00BFFF;
   color: #FFF;
+  border: none;
   border-radius: 3px;
   font-size: 13px;
 }
@@ -446,6 +448,8 @@ footer{
 }
 
 #cookieFolder-text1, #cookieFolder-text2, #cookieFolder-text3{
+  font-size: 14px;
+  font-weight: normal;
   width: 85%;
   color: #FFF;
   padding-left:10px ;
@@ -457,7 +461,7 @@ footer{
   color: red;
 }
 
-.cookieTask-add .fa-trash-alt{
+.cookieTask-add i{
   line-height: 40px;
 }
 
@@ -539,7 +543,7 @@ i {
   flex-direction: row;
   border-top: #BDBDBD solid 1px;
   /* justify-content: space-around; */
-  font-size: 14px;
+  font-size: 13px;
   color: #696969;
 }
 
@@ -603,7 +607,6 @@ i {
 .tab_item {
   width: 33.33333%;
   height: 50px;
-  border-bottom: 3px solid #00CED2;
   background-color: #d9d9d9;
   line-height: 50px;
   font-size: 16px;
@@ -646,6 +649,11 @@ input[name="tab_item"] {
   /* background-color: #424242; */
   color: #fff;
 }
+
+.tab_content .main-content {
+  border: 3px solid #00CED2;
+}
+
 
 #content1,#content2,#content3{
   display: none;
