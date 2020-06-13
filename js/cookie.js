@@ -1,7 +1,7 @@
 $(function(){
   $(".overlay").show();
   Cookies.get('btnFlg') == 'on'?$(".overlay").hide():$(".overlay").show();
-  $(".btn_area button").click(function(){
+  $(".btn_area .use").click(function(){
       $(".overlay").fadeOut();
       Cookies.set('btnFlg', 'on', { expires: 30,path: '/' }); //cookieの保存
   });
