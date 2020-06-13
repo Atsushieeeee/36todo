@@ -336,30 +336,55 @@ footer{
   color: #696969;
   padding:5px;
 }
-.site_use button{
+.use{
   border: none;
   font-size: 14px;
   font-weight: bold;
   border-radius: 8px;
-  width: 30%;
+  width: 100%;
   height: 40px;
   background: #FFAF90;
   color: #FFF;
   display:block;
+  cursor: pointer;
+  margin-bottom: 20px;
 }
 
-.site_title, .site_info, .site_use{
+.login_use{
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+  width: 100%;
+  height: 40px;
+  background: #fbfaf5;
+  display:block;
+  cursor: pointer;
+}
+
+.login_use a{
+  color: #696969;
+}
+
+.site_title{
   height: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.site_info, .site_use{
+.site_info{
   height: 25%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.site_use{
+  height: 25%;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
 }
 
 .site_title_header{
